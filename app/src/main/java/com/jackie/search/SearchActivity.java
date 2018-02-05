@@ -44,14 +44,12 @@ package com.jackie.search;
 
 import android.app.SearchManager;
 import android.content.Intent;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
-import android.view.SearchEvent;
+import android.view.MenuItem;
 
 /**
  * The type Main activity.
@@ -60,7 +58,7 @@ import android.view.SearchEvent;
  */
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
-    private SearchManager searchManager;
+    private String query;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +66,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         handleIntent(getIntent());
     }
 
@@ -79,23 +78,25 @@ public class SearchActivity extends AppCompatActivity {
 
     private void handleIntent(Intent intent) {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            query = intent.getStringExtra(SearchManager.QUERY);
             Log.d(TAG, "onCreate: start search " + query);
-            onSearchRequested();
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         return true;
     }
 
     @Override
-    public boolean onSearchRequested(@Nullable SearchEvent searchEvent) {
-        return super.onSearchRequested(searchEvent);
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                onSearchRequested();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

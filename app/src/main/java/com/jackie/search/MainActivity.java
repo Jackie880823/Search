@@ -42,14 +42,10 @@
 
 package com.jackie.search;
 
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 /**
  * @author Jackie
@@ -64,13 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(this, SearchActivity.class);
-            intent.setAction(Intent.ACTION_SEARCH);
-            intent.putExtra(SearchManager.QUERY, "test");
-            startActivity(intent);
-                }
-        );
+        fab.setOnClickListener(view -> startSearch(null, false, null, false));
     }
 
 }
