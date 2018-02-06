@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> startSearch(null, false, null, false));
+        fab.setOnClickListener(view -> onSearchRequested());
     }
 
 }

@@ -43,7 +43,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme.AppCompat.Light" parent="Theme.AppCompat.Light.DarkActionBar"/>
+    <style name="AppTheme.AppCompat.Light" parent="Theme.AppCompat.Light.DarkActionBar">
+
+    </style>
 
     <style name="AppTheme.Light" parent="AppTheme.AppCompat.Light">
         <!-- Customize your theme here. -->
