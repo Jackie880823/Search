@@ -59,8 +59,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.Light.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.Light.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+    </style>
 
-    <style name="AppTheme.Light.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.Light.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+    </style>
 
 </resources>

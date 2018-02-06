@@ -45,6 +45,7 @@ package com.jackie.search;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.SearchRecentSuggestions;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
@@ -61,6 +62,8 @@ import android.view.MenuItem;
 public class SearchActivity extends AppCompatActivity {
     private static final String TAG = "SearchActivity";
     private String query;
+    private SearchRecentSuggestions suggestions;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        suggestions = new SearchRecentSuggestions(this, SearchSuggestionProvider.AUTHORITY,
+                SearchSuggestionProvider.MODE);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -87,19 +92,24 @@ public class SearchActivity extends AppCompatActivity {
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             query = intent.getStringExtra(SearchManager.QUERY);
             Log.d(TAG, "onCreate: start search " + query);
+            suggestions.saveRecentQuery(query, null);
+
+            if (searchView != null) {
+                searchView.setQuery(query, false);
+            }
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_search, menu);
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
-        searchView.setQuery(query, false);
         searchView.onActionViewExpanded();
         searchView.setIconified(false);
+        searchView.setQuery(query, false);
 
         return true;
     }
